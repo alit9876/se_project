@@ -1,0 +1,73 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="main-content">
+      <section class="info-section">
+        <div class="info-container">
+          <h2>CAREERS</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+            reprehenderit eos laborum! Provident asperiores obcaecati nulla
+            sequi, reprehenderit aliquam laborum officia maxime corporis
+            doloremque rerum illum quasi adipisci excepturi omnis?
+          </p>
+        </div>
+      </section>
+
+      <div class="jobs-list">
+        {% if jobs %}
+            {% for job in jobs %}
+            <div class="job-item">
+                <h3>{{ job.title }}</h3>
+                <button class="detail-btn" onclick="toggleDetailsCareer(this)">View Details</button>
+                <div class="job-details">
+                    <p><strong>Total Positions:</strong> {{ job.total_positions }}</p>
+                    <p><strong>Company:</strong> {{ job.company }}</p>
+                    <p><strong>Location(s):</strong> {{ job.location }}</p>
+                    <p><strong>Education/Qualification:</strong> {{ job.education_qualification }}</p>
+                    <p><strong>Required Experience:</strong> {{ job.required_experience }}</p>
+                    <p><strong>Preferred Gender:</strong> {{ job.preferred_gender }}</p>
+                    <p><strong>Travelling:</strong> {{ job.travelling }}</p>
+                    <p><strong>Apply By:</strong> {{ job.apply_by }}</p>
+                    <button class="apply-button">Apply Now!</button>
+                    <div class="job-description">
+                        <strong>Job Description:</strong>
+                        <p>{{ job.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-jobs-message">There is no job available right now.</p>
+        {% endif %}
+    </div>
+       
+  </div>
+    </div>
+
+    <style>
+      .no-jobs-message {
+          font-size: 1.5rem; 
+          color: #ff0000; 
+          font-weight: bold;
+          text-align: center;
+          margin: 20px 0; 
+          background-color: #fff4f4; 
+          padding: 10px;
+          border: 1px solid #ffcccc; 
+          border-radius: 5px; 
+        }
+
+    </style>
+    <script src="js/include.js"></script>
+    <script>
+        function toggleDetailsCareer(button) {
+    const details = button.nextElementSibling;
+    details.style.display = details.style.display === "none" ? "block" : "none";
+}
+      </script>
+{% endblock %}

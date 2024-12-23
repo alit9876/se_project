@@ -1,0 +1,116 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="main-content">
+      <section class="info-section">
+        <div class="info-container">
+          <h2>Subjects on Offer</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+            reprehenderit eos laborum! Provident asperiores obcaecati nulla
+            sequi, reprehenderit aliquam laborum officia maxime corporis
+            doloremque rerum illum quasi adipisci excepturi omnis?
+          </p>
+        </div>
+      </section>
+      
+       <!-- Search Bar -->
+       <div class="search-container">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search Subjects..."
+            onkeyup="searchSubjects()"
+            class="search-input"
+        />
+    </div>
+    
+    {% if grade_data %}
+    {% for grade, subjects in grade_data.items %}
+        <!-- Grade heading -->
+        <h3 style="text-align: center; font-weight: bold;">Grade: {{ grade }}</h3>
+        
+        <!-- Grade table -->
+        <table class="retailers-table">
+            <thead>
+                <tr>
+                    <th>SR#</th>
+                    <th>Subject Name</th>
+                    <th>Faculty</th>
+                    <th>Offered In</th>
+                    <th>Capacity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td class="subject-name">{{ subject.subject }}</td>
+                        <td class="faculty-name">{{ subject.teacher }}</td>
+                        <td>Morning</td>
+                        <td>40</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br> <!-- Add some spacing between tables -->
+    {% endfor %}
+{% else %}
+    <p style="text-align: center;">Not available right now</p>
+{% endif %}
+
+    
+    
+      
+
+
+    </div>
+  </section>
+</div>
+    </div>
+    <script>
+      function searchSubjects() {
+    // Get the search input value and convert it to lowercase
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+
+    // Get all table rows across all grade tables
+    const tables = document.querySelectorAll(".retailers-table tbody");
+    tables.forEach((tbody) => {
+        const rows = tbody.querySelectorAll("tr");
+
+        // Iterate through all rows within the current table
+        rows.forEach((row) => {
+            const subjectCell = row.querySelector(".subject-name");
+            if (subjectCell) {
+                const subjectName = subjectCell.textContent.toLowerCase();
+                // Check if the subject name contains the search input
+                if (subjectName.includes(searchInput)) {
+                    row.style.display = ""; // Show the row
+                } else {
+                    row.style.display = "none"; // Hide the row
+                }
+            }
+        });
+    });
+
+    // Hide the grade heading if no visible rows remain in its table
+    const gradeHeadings = document.querySelectorAll("h3");
+    gradeHeadings.forEach((heading) => {
+        const table = heading.nextElementSibling; // The table follows the heading
+        const visibleRows = table.querySelectorAll("tbody tr:not([style*='display: none'])");
+        if (visibleRows.length === 0) {
+            heading.style.display = "none"; // Hide the grade heading
+            table.style.display = "none";   // Hide the table
+        } else {
+            heading.style.display = ""; // Show the grade heading
+            table.style.display = "";   // Show the table
+        }
+    });
+}
+
+    </script>
+{% endblock %}

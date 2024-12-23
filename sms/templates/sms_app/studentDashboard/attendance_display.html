@@ -1,0 +1,35 @@
+{% extends "sms_app/studentDashboard/studentlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}{{ student.first_name }}{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<section class="teachers">
+
+   <h1 class="heading" style="padding-top:2rem ;">ATTENDENCE</h1>
+
+   <div class="box-container">
+    {% for data in attendance_data %}
+      <div class="box">
+        <div class="tutor">
+          <img src="{% static 'images/pic-3.jpg' %}" alt="Teacher's Picture">
+          <div>
+            <h3>{{ data.teacher_name }}</h3>
+          </div>
+        </div>
+        <p>Subject Name: <span>{{ data.curriculum_subject }}</span></p>
+        <p>Attendance (%): <span>{{ data.attendance_percentage }}</span></p>
+        <p>Remaining Classes: <span>{{ data.remaining_classes }}</span></p>
+        <a href="{% url 'curriculum_details' data.curriculum_id %}" class="inline-btn">More Info</a>
+      </div>
+    {% empty %}
+      <p>No attendance records found.</p>
+    {% endfor %}
+  </div>
+  
+      
+   </div>
+
+</section>
+{% endblock %}

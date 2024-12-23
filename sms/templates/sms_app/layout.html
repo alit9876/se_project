@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/signinstype.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <link rel="stylesheet" href="{% static 'styles/teacherDashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/searchbar.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/collage.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/events.css' %}">
+    
+     
+</head>
+<style>
+  .office-hours {
+    color: #5c59da;
+    font-size: 20px; 
+  }
+</style>
+<body>
+    <!-- Header -->
+    <header class="topbar">
+      <div class="left-section">
+        <div class="search-bar" id="custom-search-bar">
+            <i class="fas fa-search"></i>
+            <input 
+                type="text" 
+                name="q" 
+                id="search-input" 
+                placeholder="Search" 
+                autocomplete="off" 
+                required 
+            />
+            <button type="submit" id="search-button" style="display: none;">Search</button>
+            <ul id="suggestions-list" style="display: none">
+            </ul>
+        </div>
+    </div>
+    
+    
+      
+        <div class="middle-section">
+          <a href="{% url 'home' %}" class="logo-link">
+            <div class="logo-text-container">
+              <img src="{% static 'images/logo.png' %}" alt="School Logo" class="logo" />
+              <div class="school-text">
+                <h1>School</h1>
+          </a>      
+                <span>Management System</span>
+              </div>
+            </div>
+        </div>
+      
+        <div class="right-section">
+          {% if request.session.user_id %}
+        <a href="{% url 'logout' %}" class="login"><i class="fas fa-user"></i> Log Out</a>
+          {% else %}
+        <a href="{% url 'login' %}" class="login"><i class="fas fa-user"></i> Log In</a>
+          {% endif %}
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </header>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'home' %}" class="active">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'academics' %}">Academics</a></li>
+            <li><a href="{% url 'event' %}">News & Events</a></li>
+            <li><a href="{% url 'student' %}">Students</a></li>
+            <li><a href="{% url 'careers' %}">Careers</a></li>
+            <li><a href="{% url 'admission' %}">Admissions</a></li>
+            <li><a href="{% url 'retailer' %}">Online Uniform Retailer</a></li>
+            <li><a href="{% url 'contact_us' %}">Contact</a></li>
+        </ul> 
+    </nav>
+
+    <!-- Main content block -->
+    <main>
+        {% block content %}
+        <!-- Page-specific content will be injected here -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+          <div class="footer-section logo-section">
+            <a href="{% url 'home' %}" class="logo-link">
+              <img
+                src="{% static 'images/logo.png' %}"
+                alt="School Logo"
+                class="footer-logo"
+              />
+              <h1>School</h1>
+            </a>
+            <h2>Management System</h2>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Navigation</h3>
+            <ul>
+              <li><a href="{% url 'about' %}">About</a></li>
+              <li><a href="{% url 'academics' %}"</a></li>
+              <li><a href="{% url 'event' %}">News & Events</a></li>
+              <li><a href="{% url 'student' %}">Students</a></li>
+              <li><a href="{% url 'careers' %}">Careers</a></li>
+              <li><a href="{% url 'admission' %}">Admissions</a></li>
+              <li><a href="{% url 'retailer' %}">Online Uniform Retailer</a></li>
+              <li><a href="{% url 'contact_us' %}">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Stay Connected</h3>
+            <ul>
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">YouTube</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Get in Touch</h3>
+            <p>500 Terry Francine Street</p>
+            <p>San Francisco, CA 94158</p>
+            <p>Tel: 123-456-7890</p>
+            <p>Email: <a href="mailto:info@mysite.com">info@mysite.com</a></p>
+          </div>
+        </div>
+      </footer>
+      
+      <div class="footer-bottom">
+        <p>© 2024 Powered by Tech Turtles</p>
+      </div>
+      <script src="{% static 'js/include.js' %}"></script>
+      <script src="{% static 'js/event_toggle.js' %}"></script>
+      <script src="{% static 'js/grade.js' %}"></script>
+      <script src="{% static 'js/searchbar.js' %}"></script>
+</body>
+</html>

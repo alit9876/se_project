@@ -1,0 +1,64 @@
+{% extends "sms_app/studentDashboard/studentlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}{{ student.first_name }}{% endblock %}
+
+{% block content %}
+<style>
+   table, th, td {
+      font-size: 1.7rem;
+      
+   }
+   td {
+      color: var(--light-color);
+   }
+</style>
+
+
+<section class="teacher-profile">
+
+   <h1 class="heading" style="padding-top:2rem";>Grades</h1>
+
+   <div class="details">
+      <div class="tutor">
+         <img src="{% static 'images/pic-2.jpg' %}" alt="">
+         <h3>{{ student.first_name }}</h3>
+         <span>Registeration no. : {{ student.id }}</span>
+      </div>
+   </div>
+
+   <div class="details">
+      <h1 style="font-size: 3rem;
+      color: var(--black);
+      margin-bottom: .2rem;text-align: left;">Class Results</h1>
+
+<table style="width:100%">
+   <tr>
+       <th>Class Name</th>
+       <th>Subject Name</th>
+       <th>Teacher Name</th>
+       <th>Total Marks</th>
+       <th>Obtained Marks</th>
+       <th>Percentage</th>
+       <th>Status</th>
+   </tr>
+   {% for quiz in quizzes %}
+   <tr>
+       <td>{{ quiz.curriculum.grade.grade }}</td>
+       <td>{{ quiz.curriculum.subject }}</td>
+       <td>{{ quiz.teacher.first_name }} {{ quiz.teacher.last_name }}</td>
+       <td>{{ quiz.total_marks }}</td>
+       <td>{{ quiz.obtained_marks }}</td>
+       <td>{{ quiz.percentage|floatformat:2 }}%</td>
+       <td>{{ quiz.status }}</td>
+   </tr>
+   {% endfor %}
+</table>
+
+
+       
+   </div>
+</section>
+
+
+{% endblock %}

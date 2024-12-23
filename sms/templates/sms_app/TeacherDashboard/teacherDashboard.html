@@ -1,0 +1,86 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+<style>
+  .success-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .success-message button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+</style>
+{% if messages %}
+        <div id="message-container">
+            {% for message in messages %}
+                <div class="success-message">
+                    {{ message }}
+                    <button onclick="this.parentElement.style.display='none';">×</button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+<div class="main-content">
+  <section class="teacher-dashboard">
+    <!-- Teacher Details -->
+    <div class="teacher-details">
+      <img
+        src="{% static 'images/pic-9.jpg' %}"
+        alt="Teacher Profile Picture"
+        class="profile-pic"
+      />
+      <div class="details">
+        <h2>{{ teacher.first_name }} {{ teacher.last_name }}</h2>
+        <p>Email: {{ teacher.user.username }}</p>
+        <p>Department: {{ teacher.Subject }}</p>
+    </div>
+    </div>
+
+    <!-- Dashboard Sections -->
+    <div class="dashboard-grid">
+      <div class="dashboard-card">
+        <a href="{% url 'managecurriclum' %}" class="card-link">
+        <i class="fas fa-book"></i>
+        <h3>Courses</h3>
+        <p>Manage the courses you teach.</p>
+      </a>
+      </div>
+
+      <div class="dashboard-card">
+        <a href="{% url 'attendance' %}" class="card-link">
+          <i class="fas fa-user-check"></i>
+          <h3>Attendance</h3>
+          <p>Track student attendance records.</p>
+        </a>
+      </div>
+      <div class="dashboard-card">
+        <a href="{% url 'grading' %}" class="card-link">
+          <i class="fas fa-tasks"></i>
+          <h3>Grading</h3>
+          <p>Manage and grade students.</p>
+        </a>
+      </div>
+      
+    </div>
+  </section>
+</div>
+{% endblock %}

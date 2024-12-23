@@ -1,0 +1,42 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+<div class="alumni-main">
+  <section class="info-section">
+    <div class="info-container">
+      <h2>Welcome to Our Alumni Network</h2>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore enim impedit quos ullam error excepturi possimus? Fugit deserunt omnis illo dolores? Non id assumenda esse qui ducimus, quos animi repudiandae.</p>
+      <main class="alumni-main-content">
+        <section class="featured-alumni">
+            <h2>Meet Our Alumni</h2>
+            <div class="alumni-grid">
+                <div class="alumni-card">
+                    <div class="alumni-photo"><img src="{% static 'images/alumni2.jpeg' %}" /></div>
+                    <h3>John Dow</h3>
+                    <p>Senior Developer / Achievement</p>
+                </div>
+                <div class="alumni-card">
+                    <div class="alumni-photo"><img src="{% static 'images/alumni3.jpeg' %}" /></div>
+                    <h3>Levi Ackerman</h3>
+                    <p>Current Role / Achievement</p>
+                </div>
+                <div class="alumni-card">
+                    <div class="alumni-photo"><img src="{% static 'images/alumni2.jpeg' %}" /></div>
+                    <h3>Eren yeager</h3>
+                    <p>Current Role / Achievement</p>
+                </div>
+            </div>
+        </section>
+        <section class="join-network">
+            <h2>Join Our Alumni Network</h2>
+            <p>Stay connected with your peers and contribute to our community.</p>
+            <button class="learn-more-button">Join Now</button>
+        </section>
+    </main>
+
+</div>
+</div>
+{% endblock %}

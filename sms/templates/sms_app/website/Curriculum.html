@@ -1,0 +1,161 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+<style>
+  .curriculum-section {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+}
+
+.curriculum-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.curriculum-header h2 {
+    font-size: 2.5rem;
+    color: #1d1d35;
+    margin-bottom: 10px;
+}
+
+.curriculum-header p {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Curriculum Content Styling */
+.curriculum-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.curriculum-box {
+    display: flex;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 600px;
+}
+
+.curriculum-image img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+}
+
+.curriculum-details {
+    padding: 20px;
+    flex: 1;
+}
+
+.curriculum-details h3 {
+    font-size: 1.5rem;
+    color: #5c59da;
+    margin-bottom: 10px;
+}
+
+.curriculum-details ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.curriculum-details li {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.curriculum-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #5c59da;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.curriculum-button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #5c59da;
+}
+.no-curriculum-message {
+    text-align: center; /* Center-align the text */
+    margin: 50px auto; /* Add spacing around the message */
+    padding: 20px; /* Add internal padding for better spacing */
+    border: 1px solid #ddd; /* Add a light border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 600px; /* Limit the width */
+    font-family: Arial, sans-serif; /* Use a clean font */
+    color: #555; /* Text color */
+}
+
+.no-curriculum-message h3 {
+    font-size: 24px; /* Larger font size for the title */
+    color: #333; /* Darker color for the title */
+    margin-bottom: 10px; /* Spacing below the title */
+}
+
+.no-curriculum-message p {
+    font-size: 16px; /* Standard font size for the paragraph */
+    line-height: 1.5; /* Better readability with line height */
+    color: #666; /* Slightly lighter text color */
+}
+
+</style>
+<!-- Curriculum Section -->
+ <br>
+ <br>
+<div class="curriculum-section">
+  <div class="curriculum-header">
+      <h2>Explore Our Curriculum</h2>
+      <p>
+          A well-structured program to ensure holistic development across academic and extracurricular domains.
+      </p>
+  </div>
+
+  <div class="curriculum-content">
+    {% if grouped_data %}
+    {% for grade in grouped_data %}
+      <div class="curriculum-box">
+          <div class="curriculum-image">
+              <img src="{{ grade.image }}" alt="{{ grade.grade }} Curriculum">
+          </div>
+          <div class="curriculum-details">
+              <h3>{{ grade.grade }}</h3>
+              <ul>
+                  {% for curriculum in grade.curriculums %}
+                      <li><b>{{ curriculum.subject }}:</b> {{ curriculum.details }}</li>
+                  {% endfor %}
+              </ul>
+              {% if grade.curriculums|length > 0 %}
+                  <a href="{{ grade.curriculums.0.syllabus_link }}" class="curriculum-button">Download Syllabus</a>
+              {% endif %}
+          </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="no-curriculum-message">
+      <h3>No curriculum available</h3>
+      <p>We are currently updating our curriculum details. Please check back later.</p>
+    </div>
+  {% endif %}
+  
+
+  </div>
+</div>
+
+{% endblock %}

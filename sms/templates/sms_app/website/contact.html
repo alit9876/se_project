@@ -1,0 +1,101 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <div class="main-content">
+      <section class="info-section">
+        <div class="info-container">
+          <h2>CONTACT US</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+            reprehenderit eos laborum! Provident asperiores obcaecati nulla
+            sequi, reprehenderit aliquam laborum officia maxime corporis
+            doloremque rerum illum quasi adipisci excepturi omnis?
+          </p>
+        </div>
+      </section>
+      <div class="collage-container">
+        <div class="collage-box" style="height: 800px">
+          <div id="contact-form" class="collage-info">
+            <h2>Visit the School</h2>
+            <h3>ADDRESS</h3>
+            <p>
+              500 Terry Francine Street <br />
+              San Francisco, CA 94158
+            </p>
+
+            <h3>INFORMATION</h3>
+            <p>For information or questions:</p>
+
+            <h3>E-MAIL US</h3>
+            <p>
+              <a
+                href="mailto:info@mysite.com"
+                style="color: #c9c5c3; text-decoration: none"
+                >info@mysite.com</a
+              >
+            </p>
+
+            <h3>CALL OUR MAINLINE</h3>
+            <p>123-456-7890</p>
+
+            <h3>OFFICE HOURS</h3>
+            <p>
+              While school is in session our staff offices are open from <br />
+              <span class="office-hours">7:30 am - 4:00 pm</span> <br>
+              During the summer our staff offices are open from
+              <span class="office-hours">8:30 am - 3:30 pm</span>
+            </p>
+          </div>
+          <div class="collage-image collage-image-right">
+            <img
+              src="{% static 'images/contact.jpg' %}"
+              alt="Right Image"
+              class="collage-img"
+            />
+          </div>
+        </div>
+
+        <div class="collage-box" style="height: 800px">
+          <div class="collage-image collage-image-left">
+            <!-- Embed Google Map here -->
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509175!2d144.95373531547886!3d-37.81720957975127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf5771304fa090b15!2sFederation%20Square!5e0!3m2!1sen!2sau!4v1611784953912!5m2!1sen!2sau"
+              width="100%"
+              height="800"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="collage-info">
+            <h2>
+              You Can Also <br />
+              Contact Us By Form
+            </h2>
+
+            <!-- Form Section -->
+            <form method="POST" class="contact-form">
+              {% csrf_token %}
+              <div class="form-group">
+                  {{ form.first_name }}
+                  {{ form.last_name }}
+              </div>
+              <div class="form-group">
+                  {{ form.email }}
+                  {{ form.phone }}
+              </div>
+              <div class="form-group">
+                  {{ form.message }}
+              </div>
+              <button type="submit" class="collage-button">Submit</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}

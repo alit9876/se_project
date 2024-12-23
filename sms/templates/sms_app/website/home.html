@@ -1,0 +1,48 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<div class="student-image-container">
+  <img
+    src="{% static 'images/students.jpg' %}"
+    alt="Students Image"
+    class="student-image"
+  />
+  <div class="overlay-box">
+    <h2>Welcome to Our School</h2>
+    <p>
+      Explore a world of opportunities and growth at our school. Join us
+      today!
+    </p>
+    <br>
+    <br>
+    <a href="{% url 'about' %}" class="learn-more-button">Discover the School</a>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="main-content">
+  <div class="collage-container">
+    <div class="collage-box">
+      <div class="collage-image collage-image-left">
+        <img
+          src="{% static 'images/studentlife.jpg' %}"
+          alt="Left Image"
+          class="collage-img"
+        />
+      </div>
+      <div class="collage-info">
+        <h2>Student Life</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          euismod velit sit amet tortor bibendum, at viverra purus aliquam.
+        </p>
+        <a href="{% url 'student' %}" class="collage-button">Student Information</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

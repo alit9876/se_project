@@ -1,0 +1,207 @@
+{% load static %}  <!-- Make sure this is at the top -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission</title>
+  <link rel="stylesheet" href="{% static 'styles/styleadmin.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/admission_style.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/meter-style.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
+	
+</head>
+<body>
+	<!-- Header -->
+    
+	<header class="topbar">
+        <div class="left-section">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+      
+        <div class="middle-section">
+          <a href="{% url 'admin_dashboard' %}" class="logo-link">
+            <div class="logo-text-container">
+              <img src="{% static 'images/logo.png' %}" alt="School Logo" class="logo" />
+              <div class="school-text">
+                <h1>School</h1>
+          </a>      
+                <span>Management System</span>
+              </div>
+            </div>
+        </div>
+      
+        <div class="right-section">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </header>
+	  <br>
+	  <br>
+  <section class="header">
+
+	<div class="wrapper">
+		<div class="r_form_wrap">
+			
+			<div class="title" style="border-radius: 20px;">
+				<div class="add-btn">
+				<a href="{% url 'student_manage' %}" style="font-size: 1.4rem;"><i class="fas fa-home"></i></a>
+				<p>Add Student</p>	
+			</div>
+				
+				
+			</div>
+			
+			<!-- Admission from -->
+			<div class="r_form" style="border-radius: 20px;">
+				<form method="post" enctype="multipart/form-data" id="studentForm">
+					{% csrf_token %}
+					<div class="input_wrap">
+						<label for="first_name">First Name</label>
+						<div class="input_item">
+							<i class="fa fa-user" id="icon"></i>
+							<input type="text" name="first_name" class="input" id="first_name" placeholder="Enter the first name" required>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="last_name">Last Name</label>
+						<div class="input_item">
+							<i class="fa fa-user" id="icon"></i>
+							<input type="text" name="last_name" class="input" id="last_name" placeholder="Enter the last name" required>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="email">Email Address</label>
+						<div class="input_item">
+							<i class="fa fa-envelope" id="icon"></i>
+							<input type="email" name="email" class="input" id="email" placeholder="Enter the Email ID" required>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="contact_no">Phone</label>
+						<div class="input_item">
+							<i class="fa fa-phone-square" id="icon"></i>
+							<input type="text" name="contact_no" class="input" id="contact_no" placeholder="Enter the Mobile number" required>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label>Gender</label>
+						<div class="input_radio">
+							<div class="input_radio_item">
+								<input type="radio" id="male" name="gender" class="radio" value="M" required>
+								<label for="male" class="radio_mark">
+									<ion-icon class="i" name="male-sharp"></ion-icon>
+									Male
+								</label>
+							</div>
+							<div class="input_radio_item">
+								<input type="radio" id="female" name="gender" class="radio" value="F">
+								<label for="female" class="radio_mark">
+									<ion-icon class="i" name="female-sharp"></ion-icon>
+									Female
+								</label>
+							</div>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="dob">Date Of Birth</label>
+						<div class="input_item">
+							<i class="fa fa-calendar" id="icon"></i>
+							<input type="date" name="dob" class="input" id="dob" required>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="grade">Class</label>
+						<div class="input_item">
+							<i class="fa fa-caret-square-o-down" id="icon"></i>
+							<select id="grade" name="grade" class="input" required>
+								<option value="">Select the Class</option>
+								{% for grade in grades %}
+									<option value="{{ grade.id }}">{{ grade.grade }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="father_first_name">Father's First Name</label>
+						<div class="input_item">
+							<i class="fa fa-user" id="icon"></i>
+							<input type="text" name="father_first_name" class="input" id="father_first_name" placeholder="Enter the father's first name" required>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="father_last_name">Father's Last Name</label>
+						<div class="input_item">
+							<i class="fa fa-user" id="icon"></i>
+							<input type="text" name="father_last_name" class="input" id="father_last_name" placeholder="Enter the father's last name" required>
+						</div>
+					</div>
+			
+					<div class="input_wrap">
+						<label for="father_contact_no">Father's Phone Number</label>
+						<div class="input_item">
+							<i class="fa fa-phone-square" id="icon"></i>
+							<input type="text" name="father_contact_no" class="input" id="father_contact_no" placeholder="Enter the father's phone number" required>
+						</div>
+					</div>
+			
+					<input type="submit" class="button" value="Register Now">
+					<input type="reset" class="clear_ad" value="Clear" onclick="clearForm();">
+				</form>
+			</div>
+			
+	
+		</div>
+	</div>
+	</section>
+	<div class="none_div">
+
+	
+	</body>
+
+    <!-- Script -->
+    <script src="js/include.js"></script>
+	<!-- Javascript for this Web page -->
+	<script src=" https://smtpjs.com/v3/smtp.js"></script>
+	<script>
+	function clearForm() {
+    document.getElementById("studentForm").reset();
+}
+
+	function sendmail(){
+		Email.send({}).then(
+	message => alert("Thanks for filling out our form!")
+);
+		}
+	</script>
+	<script>
+	var navLinks= document.getElementById("navLinks");
+
+function showmenu(){
+    navLinks.style.right="0";
+}   
+function hidemenu(){
+    navLinks.style.right="-200px";
+}
+</script>
+</html>

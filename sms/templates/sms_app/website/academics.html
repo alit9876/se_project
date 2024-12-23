@@ -1,0 +1,118 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<div class="main-content">
+  <section class="info-section">
+    <div class="info-container">
+      <h2>ACADEMICS</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+        reprehenderit eos laborum! Provident asperiores obcaecati nulla
+        sequi, reprehenderit aliquam laborum officia maxime corporis
+        doloremque rerum illum quasi adipisci excepturi omnis?
+      </p>
+    </div>
+  </section>
+
+  <div class="section-container">
+    <div class="content-box">
+      <div class="text-box">
+        <h3>Social Studies</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur elit. Provident porro
+          facere illum, harum fuga voluptates placeat repellat autem
+          laudantium tempore quidem aliquid similique vitae.
+        </p>
+        <a href="#" class="learn-more-button">Learn More</a>
+      </div>
+      <div class="image-box">
+        <img src="{% static 'images/socialStudy.jpg' %}" alt="Social Studies" />
+      </div>
+    </div>
+
+    <div class="content-box">
+      <div class="text-box">
+        <h3>Science</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente,
+          culpa. Nobis architecto reiciendis quae dignissimos cum mollitia,
+          placeat praesentium omnis saepe iste laborum aspernatur fuga
+          facilis tempora ipsam eum vero.
+        </p>
+        <a href="#" class="learn-more-button">Learn More</a>
+      </div>
+      <div class="image-box">
+        <img src="{% static 'images/science.jpg' %}" alt="Science" />
+      </div>
+    </div>
+
+    <div class="content-box">
+      <div class="image-box">
+        <img src="{% static 'images/math.jpg' %}" alt="Science" />
+      </div>
+      <div class="text-box" style="background-color: #1d1d35;">
+        <h3 style="color: whitesmoke;">Math</h3>
+        <p style="color: whitesmoke;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente,
+          culpa. Nobis architecto reiciendis quae dignissimos cum mollitia,
+          placeat praesentium omnis saepe iste laborum aspernatur fuga
+          facilis tempora ipsam eum vero.
+        </p>
+        <a href="#" class="learn-more-button">Learn More</a>
+      </div>
+    </div>
+
+    <div class="content-box">
+      <div class="image-box">
+        <img src="{% static 'images/literature.jpg' %}" alt="Science" />
+      </div>
+      <div class="text-box" style="background-color: #1d1d35;">
+        <h3 style="color: whitesmoke;">Literature Arts</h3>
+        <p style="color: whitesmoke;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente,
+          culpa. Nobis architecto reiciendis quae dignissimos cum mollitia,
+          placeat praesentium omnis saepe iste laborum aspernatur fuga
+          facilis tempora ipsam eum vero.
+        </p>
+        <a href="#" class="learn-more-button">Learn More</a>
+      </div>
+    </div>
+
+    <div class="content-box">
+      <div class="text-box">
+        <h3>Arts</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
+          porro facere illum, harum fuga voluptates placeat repellat autem
+          laudantium tempore quidem aliquid similique vitae consequuntur,
+          delectus eos beatae. Enim, eum?
+        </p>
+        <a href="#" class="learn-more-button">Learn More</a>
+      </div>
+      <div class="image-box">
+        <img src="{% static 'images/art.jpg' %}" alt="Social Studies" />
+      </div>
+    </div>
+
+    <div class="content-box">
+      <div class="text-box">
+        <h3>Physical Education</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente,
+          culpa. Nobis architecto reiciendis quae dignissimos cum mollitia,
+          placeat praesentium omnis saepe iste laborum aspernatur fuga
+          facilis tempora ipsam eum vero.
+        </p>
+        <a href="#" class="learn-more-button">Learn More</a>
+      </div>
+      <div class="image-box">
+        <img src="{% static 'images/phyEdu.jpg' %}" alt="Science" />
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

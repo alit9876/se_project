@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+    <link rel="stylesheet" href="{% static 'styles/signinstype.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/lms.css' %}">
+    
+    
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="topbar">
+        <div class="left-section">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+      
+        <div class="middle-section">
+          <a href="{% url 'student_dashboard' %}" class="logo-link">
+            <div class="logo-text-container">
+              <img src="{% static 'images/logo.png' %}" alt="School Logo" class="logo" />
+              <div class="school-text">
+                <h1>School</h1>
+          </a>      
+                <span>Management System</span>
+              </div>
+            </div>
+        </div>
+      
+        <div class="right-section">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </header>
+      
+      <div class="side-bar">
+
+        <div class="profile">
+           <img src="{% static 'images/pic-1.jpg' %}" class="image" alt="">
+           <p class="role">{% block title %}School Management System{% endblock %}</p>
+        </div>
+     
+        <nav class="sidebar">
+           <a href="{% url 'student_dashboard' %}" style="border-radius: 20px;"><i class="fas fa-home"></i><span>HOME</span></a>
+           <a href="{% url 'student_dashboard_attendance' %}" style="border-radius: 20px;"><i class="fas fa-calendar-alt"></i><span>ATTENDENCE</span></a>
+           <a href="{% url 'student_dashboard_grades' %}" style="border-radius: 20px;"><i class="fas fa-graduation-cap"></i><span>GRADES</span></a>
+           <a href="{% url 'student_dashboard_fee' %}" style="border-radius: 20px;"><i class="fas fa-chalkboard-user"></i><span>Online Fee Payment</span></a>
+           <a href="{% url 'logout' %}" style="border-radius: 20px;"><i class="fas fa-headset"></i><span>Logout</span></a>
+        </nav>
+     
+     </div>
+    <!-- Navbar -->
+    
+
+    
+    <!-- Main content block -->
+    <main>
+        {% block content %}
+        <!-- Page-specific content will be injected here -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+      <script src="{% static 'js/include.js' %}"></script>
+</body>
+</html>

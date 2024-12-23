@@ -1,0 +1,206 @@
+{% extends "sms_app/adminDashboard/Adminlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<style>
+   table, th, td {
+      font-size: 1.7rem;
+      
+   }
+   td {
+      color: var(--light-color);
+   }
+</style>
+
+{% if messages %}
+      <ul>
+          {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+<section class="teacher-profile">
+
+   <h1 class="heading" style="padding-top:2rem";>Manage Teacher</h1>
+
+
+   <div class="details">
+    <h1 style="font-size: 3rem;
+    color: var(--black);
+    margin-bottom: .2rem;text-align: left;">Add Teacher</h1>
+    <br>
+    <br>
+    <div class="add-btn">         
+       <a href="{% url 'add_manage_teacher' %}" style="border: #1d1d35; font-size: 1.5rem; margin-left: 3rem; margin-bottom: 1rem; padding:0.5rem 0.8rem;">
+          <span>Add Teacher</span>
+          </a>
+          
+    </div>
+    
+ </div>   
+  
+  
+  
+
+
+
+   <div class="details">
+      <h1 style="font-size: 3rem;
+      color: var(--black);
+      margin-bottom: .2rem;text-align: left;">Teachers List</h1>
+<br>
+<br>
+<br>
+
+<div class="search-bar">
+   <i class="fas fa-search"></i>
+   <input type="text" id="search-input" placeholder="Search Student" onkeyup="filterTable()" />
+   <button id="filter-btn" class="filter-btn" onclick="toggleFilterDropdown()">
+     <i class="fas fa-filter"></i>
+   </button>
+   <div id="filter-dropdown" class="filter-dropdown" style="display: none;">
+     <label><input type="checkbox" class="filter-checkbox" data-column="1" checked /> Name</label><br />
+     <label><input type="checkbox" class="filter-checkbox" data-column="3" checked /> Subject</label><br />
+     <label><input type="checkbox" class="filter-checkbox" data-column="4" checked /> Email</label>
+   </div>
+</div>
+
+ <br>
+ <br>
+ <br>
+
+<table style="width:100%">
+   <thead>
+       <tr>
+           <th>ID</th>
+           <th>Name</th>
+           <th>Grade</th>
+           <th>Subject</th>
+           <th>Email</th>
+           <th>Actions</th>
+       </tr>
+   </thead>
+   <tbody>
+       {% for tgc in teacher_grade_curriculums %}
+       <tr>
+           <td>{{ forloop.counter }}</td>
+           <td>{{ tgc.teacher.first_name }} {{ tgc.teacher.last_name }}</td>
+           <td>{{ tgc.grade.grade }}</td>
+           <td>{{ tgc.curriculum.subject }}</td>
+           <td>{{ tgc.teacher.user.username }}</td>
+           <td>
+            <button 
+            class="edit-btn" 
+            style="font-size: small; background-color: #1d1d35; margin-right: 2px; padding:1rem 1rem; border-radius: 5px; color: #fff;" 
+            onclick="openTeacherPopup1('{{ tgc.teacher.first_name }}', '{{ tgc.teacher.last_name }}', '{{ tgc.teacher.user.contact_no }}', '{{ tgc.teacher.user.password }}', '{{ tgc.teacher.id }}' )">
+            Edit
+        </button>
+               
+           </td>
+       </tr>
+       {% endfor %}
+   </tbody>
+</table>
+
+       
+</div>
+
+<div id="teacher-popup-form" class="popup">
+   <div class="popup-content">
+     <span class="close-btn" onclick="closeTeacherPopup()">&times;</span>
+     <h3>Edit Teacher</h3>
+     <form id="edit-teacher-form" method="POST" action="{% url 'edit_teacher' %}">
+      {% csrf_token %}
+      <label for="teacher-first-name">First Name:</label>
+      <input type="text" id="teacher-first-name" name="first_name" required />
+  
+      <label for="teacher-last-name">Last Name:</label>
+      <input type="text" id="teacher-last-name" name="last_name" required />
+  
+      <label for="teacher-contact">Contact:</label>
+      <input type="text" id="teacher-contact" name="contact_no" required />
+  
+      <label for="teacher-password">Password:</label>
+      <input type="password" id="teacher-password" name="password" />
+  
+      <input type="hidden" id="teacher-id" name="teacher_id" />
+  
+      <button type="submit" style="background-color: #1d1d35; color: #fff; border-radius: 5px; padding: 0.5rem 1rem;">
+          Save
+      </button>
+  </form>
+  
+   </div>
+ </div>
+   
+</section>
+
+<script>
+   function openTeacherPopup1(firstName, lastName, contact, email,teacherId) {
+    // Get the popup form
+    
+    const popup = document.getElementById('teacher-popup-form');
+  
+    // Populate form fields
+    document.getElementById('teacher-first-name').value = firstName;
+    document.getElementById('teacher-last-name').value = lastName;
+    document.getElementById('teacher-contact').value = contact;
+    document.getElementById('teacher-password').value = email;
+    document.getElementById('teacher-id').value = teacherId;
+
+    // Optionally display email or other uneditable fields (if needed)
+    
+  
+    // Display the popup
+    popup.style.display = 'flex';
+  }
+  
+  function closeTeacherPopup() {
+    // Hide the popup
+    const popup = document.getElementById('teacher-popup-form');
+    popup.style.display = 'none';
+  }
+  
+   // Toggle the filter dropdown visibility
+   function toggleFilterDropdown() {
+   const dropdown = document.getElementById('filter-dropdown');
+   dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+
+// Filter table rows based on search input and selected columns
+function filterTable() {
+   const input = document.getElementById('search-input').value.toLowerCase();
+   const table = document.querySelector('table');
+   const rows = table.querySelectorAll('tbody tr');
+   const selectedColumns = Array.from(document.querySelectorAll('.filter-checkbox:checked'))
+     .map(checkbox => parseInt(checkbox.dataset.column));
+
+   rows.forEach(row => {
+     let match = false;
+     selectedColumns.forEach(colIndex => {
+       const cell = row.children[colIndex];
+       if (cell && cell.textContent.toLowerCase().includes(input)) {
+         match = true;
+       }
+     });
+     row.style.display = match ? '' : 'none';
+   });
+}
+
+// Close the dropdown if clicked outside
+document.addEventListener('click', event => {
+   const dropdown = document.getElementById('filter-dropdown');
+   const filterBtn = document.getElementById('filter-btn');
+   if (!dropdown.contains(event.target) && !filterBtn.contains(event.target)) {
+     dropdown.style.display = 'none';
+   }
+});
+
+
+</script>
+
+{% endblock %}

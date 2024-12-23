@@ -1,0 +1,82 @@
+{% extends "sms_app/studentDashboard/studentlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}{{ student.first_name }}{% endblock %}
+
+{% block content %}
+<style>
+   table, th, td {
+      font-size: 1.7rem;
+      
+   }
+   td {
+      color: var(--light-color);
+   }
+   p.no-challan {
+    font-size: 18px;
+    color: #ff0000; /* Red color for emphasis */
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
+    background-color: #fff3f3; /* Light red background */
+    border: 1px solid #ffcccc; /* Light red border */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+
+<section class="teacher-profile">
+
+   <h1 class="heading" style="padding-top:2rem";>Grades</h1>
+
+   <div class="details">
+      <div class="tutor">
+         <img src="{% static 'images/pic-2.jpg' %}" alt="">
+         <h3>{{ student.first_name }}</h3>
+         <span>Registeration no. : {{ student.id }}</span>
+      </div>
+   </div>
+
+   <div class="details">
+      <h1 style="font-size: 3rem;
+      color: var(--black);
+      margin-bottom: .2rem;text-align: left;">Class Results</h1>
+
+{% if challans %}
+<table style="width: 100%">
+    <tr>
+        <th>Challan Title</th>
+        <th>Challan ID</th>
+        <th>Month</th>
+        <th>Due Date</th>
+        <th>Total</th>
+        <th>Pay Online</th>
+        <th>Is Paid</th>
+    </tr>
+    {% for challan in challans %}
+    <tr>
+        <td>{{ challan.challan_title }}</td>
+        <td>{{ challan.id }}</td>
+        <td>{{ challan.month }}</td>
+        <td>{{ challan.due_date|date:"d/m/Y" }}</td>
+        <td>{{ challan.total }}</td>
+        <td>
+            {% if not challan.is_paid %}
+            <a href="{% url 'pay_challan' challan.id %}" class="inline-btn">Pay Now</a>
+            {% else %}
+            <span>Paid</span>
+            {% endif %}
+        </td>
+        <td>{{ challan.is_paid|yesno:"Yes,No" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="no-challan">No challans are available at the moment.</p>
+{% endif %}
+       
+   </div>
+</section>
+{% endblock %}

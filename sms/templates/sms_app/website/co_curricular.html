@@ -1,0 +1,51 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="info-section">
+      <div class="info-container">
+        <h2>Clubs & Activities</h2>
+        <h3>Engage Beyond the Classroom</h3>
+        
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore enim impedit quos ullam error excepturi possimus? Fugit deserunt omnis illo dolores? Non id assumenda esse qui ducimus, quos animi repudiandae.</p>
+      </div>
+      
+      <div class="collage-container">
+          <div class="collage-box">
+              <div class="collage-image">
+                  <img src="{% static 'images/cocurricular1.jpg' %}" alt="Music Club" >
+              </div>
+              <div class="collage-info">
+                  <h2>Music Club</h2>
+                  <p>Unleash your musical talent with our state-of-the-art facilities.</p>
+                  <a href="#" class="collage-button">Learn More</a>
+              </div>
+          </div>
+  
+          <div class="collage-box">
+              <div class="collage-image">
+                  <img src="{% static 'images/sports.jpg' %}" alt="Sports Activities">
+              </div>
+              <div class="collage-info">
+                  <h2>Sports Activities</h2>
+                  <p>Stay fit and competitive with a wide range of sports activities.</p>
+                  <a href="#" class="collage-button">Learn More</a>
+              </div>
+          </div>
+  
+          <div class="collage-box">
+              <div class="collage-image">
+                  <img src="{% static 'images/art.jpg' %}" alt="Art and Creativity">
+              </div>
+              <div class="collage-info">
+                  <h2>Art & Creativity</h2>
+                  <p>Explore your artistic potential through our creative workshops.</p>
+                  <a href="#" class="collage-button">Learn More</a>
+              </div>
+          </div>
+      </div>
+    </section>
+{% endblock %}

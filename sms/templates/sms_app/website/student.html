@@ -1,0 +1,95 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<div class="main-content">
+  <section class="info-section">
+    <div class="info-container">
+      <h2>OUR STUDENTS</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+        reprehenderit eos laborum! Provident asperiores obcaecati nulla
+        sequi, reprehenderit aliquam laborum officia maxime corporis
+        doloremque rerum illum quasi adipisci excepturi omnis?
+      </p>
+    </div>
+  </section>
+
+  <div class="collage-container">
+    <div class="collage-box">
+      <div class="collage-image collage-image-left">
+        <img
+          src="{% static 'images/clubs.jpg' %}"
+          alt="Left Image"
+          class="collage-img"
+        />
+      </div>
+      <div class="collage-info">
+        <h2>Clubs & Activities</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          euismod velit sit amet tortor bibendum, at viverra purus aliquam.
+        </p>
+        <a href="{% url 'Cocurricular' %}" class="collage-button">Learn More</a>
+      </div>
+    </div>
+
+    <div class="collage-box">
+      <div class="collage-info">
+        <h2>Student Information System</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          euismod velit sit amet tortor bibendum, at viverra purus aliquam.
+        </p>
+        <a href="#" class="collage-button">Learn More</a>
+      </div>
+      <div class="collage-image collage-image-right">
+        <img
+          src="{% static 'images/sis.jpg' %}"
+          alt="Right Image"
+          class="collage-img"
+        />
+      </div>
+    </div>
+
+    <div class="collage-box">
+      <div class="collage-image collage-image-left">
+        <img
+          src="{% static 'images/subjects.jpg' %}"
+          alt="Left Image"
+          class="collage-img"
+        />
+      </div>
+      <div class="collage-info">
+        <h2>Subjects On Offer</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          euismod velit sit amet tortor bibendum, at viverra purus aliquam.
+        </p>
+        <a href="{% url 'offeredSubjects' %}" class="collage-button">Learn More</a>
+      </div>
+    </div>
+
+    <div class="collage-box">
+      <div class="collage-info">
+        <h2>College & Career Counseling</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          euismod velit sit amet tortor bibendum, at viverra purus aliquam.
+        </p>
+        <a href="#" class="collage-button">Learn More</a>
+      </div>
+      <div class="collage-image collage-image-right">
+        <img
+          src="{% static 'images/counseling.jpg' %}"
+          alt="Right Image"
+          class="collage-img"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

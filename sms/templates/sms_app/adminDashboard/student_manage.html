@@ -1,0 +1,210 @@
+{% extends "sms_app/adminDashboard/Adminlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+
+   <style>
+   table, th, td {
+      font-size: 1.7rem;
+      
+   }
+   td {
+      color: var(--light-color);
+   }
+   </style>
+   <!-- custom css file link  -->
+   {% if messages %}
+   <div class="messages">
+       {% for message in messages %}
+           <div class="alert alert-{{ message.tags }}">
+               {{ message }}
+           </div>
+       {% endfor %}
+   </div>
+{% endif %}
+   
+<section class="teacher-profile">
+
+   <h1 class="heading" style="padding-top:2rem";>Manage Students</h1>
+
+
+   <div class="details">
+      <h1 style="font-size: 3rem;
+      color: var(--black);
+      margin-bottom: .2rem;text-align: left;">Add Student</h1>
+      <br>
+      <br>
+      <div class="add-btn">         
+         <a href="{% url 'add_student_manage' %}" style="border: #1d1d35; font-size: 1.5rem; margin-left: 3rem; margin-bottom: 1rem; padding:0.5rem 0.8rem;">
+            <span>Add Student</span>
+            </a>
+            
+      </div>
+      
+   </div>   
+
+
+
+   <div class="details">
+      <h1 style="font-size: 3rem;
+      color: var(--black);
+      margin-bottom: .2rem;text-align: left;">Students List</h1>
+<br>
+<br>
+<br>
+
+<div class="search-bar">
+   <i class="fas fa-search"></i>
+   <input type="text" id="search-input" placeholder="Search Student" onkeyup="filterTable()" />
+   <button id="filter-btn" class="filter-btn" onclick="toggleFilterDropdown()">
+     <i class="fas fa-filter"></i>
+   </button>
+   <div id="filter-dropdown" class="filter-dropdown" style="display: none;">
+     <label><input type="checkbox" id="filter-name" checked /> Name</label><br />
+     <label><input type="checkbox" id="filter-class" checked /> Class</label><br />
+     <label><input type="checkbox" id="filter-email" checked /> Email</label>
+   </div>
+</div>
+
+<br>
+<br>
+<br>
+
+<table style="width:100%" id="student-table">
+   <thead>
+      <tr>
+         <th>ID</th>
+         <th>Name</th>
+         <th>Gender</th>
+         <th>Class</th>
+         <th>Email</th>
+         <th>Actions</th>
+      </tr>
+   </thead>
+   <tbody>
+      {% for student in students %}
+      <tr data-student-id="{{ student.id }}">
+         <td>{{ forloop.counter }}</td>
+         <td class="filter-name">{{ student.first_name }} {{ student.last_name }}</td>
+         <td>{{ student.gender }}</td>
+         <td class="filter-class">{{ student.grade.grade }}</td>
+         <td class="filter-email">{{ student.user.username }}</td>
+         <td>
+            <button class="edit-btn" 
+                     style="font-size: small; background-color: #1d1d35; margin-right: 2px; padding:1rem 1rem; border-radius: 5px; color: #fff;" 
+                    onclick="openStudentPopup1('{{ student.first_name }}', '{{ student.last_name }}', '{{ student.grade.grade }}', '{{ student.user.username }}','{{student.id}}')">Edit</button>
+         </td>
+      </tr>
+      {% empty %}
+      <tr>
+         <td colspan="6">No students found.</td>
+      </tr>
+      {% endfor %}
+   </tbody>
+</table>
+
+     
+</div>
+   
+<div id="teacher-popup-form" class="popup">
+   <div class="popup-content">
+     <span class="close-btn" onclick="closeTeacherPopup()">&times;</span>
+     <h3>Edit Teacher</h3>
+     <form id="edit-teacher-form" method="POST" action="{% url 'edit_student' %}">
+      {% csrf_token %}
+      <label for="teacher-first-name">First Name:</label>
+      <input type="text" id="teacher-first-name" name="first_name" required />
+  
+      <label for="teacher-last-name">Last Name:</label>
+      <input type="text" id="teacher-last-name" name="last_name" required />
+  
+      <label for="teacher-contact">Grade:</label>
+      <input type="text" id="teacher-contact" name="contact_no" required />
+  
+      <label for="teacher-password">username:</label>
+      <input type="text" id="teacher-password" name="username" />
+  
+      <input type="hidden" id="teacher-id" name="teacher_id" />
+  
+      <button type="submit" style="background-color: #1d1d35; color: #fff; border-radius: 5px; padding: 0.5rem 1rem;">
+          Save
+      </button>
+  </form>
+  
+   </div>
+ </div>      
+
+   
+</section>
+
+<script>
+function openStudentPopup1(firstName, lastName, grade, username,studentID) {
+    // Get the popup form
+    
+    const popup = document.getElementById('teacher-popup-form');
+  
+    // Populate form fields
+    document.getElementById('teacher-first-name').value = firstName;
+    document.getElementById('teacher-last-name').value = lastName;
+    document.getElementById('teacher-contact').value = grade;
+    document.getElementById('teacher-password').value = username;
+    document.getElementById('teacher-id').value = studentID;
+
+    // Optionally display email or other uneditable fields (if needed)
+    
+  
+    // Display the popup
+    popup.style.display = 'flex';
+  }
+  
+  function closeTeacherPopup() {
+    // Hide the popup
+    const popup = document.getElementById('teacher-popup-form');
+    popup.style.display = 'none';
+  }
+
+document.querySelector('.filter-icon').addEventListener('click', function () {
+         const dropdown = document.querySelector('.filter-dropdown');
+         dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+      });
+
+      function toggleFilterDropdown() {
+   const dropdown = document.getElementById("filter-dropdown");
+   dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+}
+
+function filterTable() {
+   const searchInput = document.getElementById("search-input").value.toLowerCase();
+   const table = document.getElementById("student-table");
+   const rows = table.getElementsByTagName("tr");
+
+   // Get filter checkboxes
+   const filterName = document.getElementById("filter-name").checked;
+   const filterClass = document.getElementById("filter-class").checked;
+   const filterEmail = document.getElementById("filter-email").checked;
+
+   // Loop through all table rows (skip the header row)
+   for (let i = 1; i < rows.length; i++) {
+      const nameCell = rows[i].querySelector(".filter-name");
+      const classCell = rows[i].querySelector(".filter-class");
+      const emailCell = rows[i].querySelector(".filter-email");
+
+      // Check if the row matches the search input
+      const matchesName = filterName && nameCell && nameCell.textContent.toLowerCase().includes(searchInput);
+      const matchesClass = filterClass && classCell && classCell.textContent.toLowerCase().includes(searchInput);
+      const matchesEmail = filterEmail && emailCell && emailCell.textContent.toLowerCase().includes(searchInput);
+
+      // Show or hide the row based on matching criteria
+      if (matchesName || matchesClass || matchesEmail) {
+         rows[i].style.display = "";
+      } else {
+         rows[i].style.display = "none";
+      }
+   }
+}
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "sms_app/studentDashboard/studentlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}{{ student.first_name }}{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<style>
+   table, th, td {
+      font-size: 1.7rem;
+      
+   }
+   td {
+      color: var(--light-color);
+   }
+</style>
+<section class="teacher-profile">
+
+   <h1 class="heading" style="padding-top:2rem";>Course Info</h1>
+
+   <div class="details">
+      <div class="tutor">
+          <img src="{% static 'images/pic-2.jpg' %}" alt="">
+          <h3>{{ teacher_name }}</h3>
+          <span>{{ teacher_email }}</span>
+      </div>
+      <div class="flex">
+          <p>Subject : <span>{{ subject_name }}</span></p>
+      </div>
+  </div>
+  <div class="details">
+      <h1 style="font-size: 3rem;
+        color: var(--black);
+        margin-bottom: .2rem;text-align: left;">Course Content</h1>
+      <table style="width:100%">
+          <tr>
+              <th>Weeks</th>
+              <th>Topics</th>
+          </tr>
+          {% for week, topics in content_by_week.items %}
+          <tr>
+              <td>Week {{ week }}</td>
+              <td>
+                  {% for topic in topics %}
+                  {{ topic }}<br>
+                  {% endfor %}
+              </td>
+          </tr>
+          {% endfor %}
+      </table>
+  </div>
+  
+
+   <div class="details">
+      <h1 style="font-size: 3rem;
+      color: var(--black);
+      margin-bottom: .2rem;text-align: left;">Assessment Criteria</h1>
+
+      <table style="width:100%">
+         <tr>
+           <th>Type</th>
+           <th>Weightage</th>
+           <th>Total marks</th>
+         </tr>
+         <tr>
+           <td>Quiz 1</td>
+           <td>10.00</td>
+           <td>10.00</td>
+         </tr>
+         <tr>
+            <td>Quiz 2</td>
+            <td>10.00</td>
+            <td>10.00</td>           
+         </tr>
+         <tr>
+            <td>Class Participation</td>
+            <td>10.00</td>
+            <td>10.00</td>           
+         </tr>
+         <tr>
+            <td>Mid Term</td>
+            <td>30.00</td>
+            <td>30.00</td>           
+         </tr>
+         <tr>
+            <td>Final Term</td>
+            <td>40.00</td>
+            <td>40.00</td>           
+         </tr>
+       </table>
+       
+   </div>
+</section>   
+
+
+{% endblock %}

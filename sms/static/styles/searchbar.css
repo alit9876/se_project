@@ -1,0 +1,49 @@
+#custom-search-bar {
+    position: relative;
+}
+
+/* Styling for the suggestions list */
+#suggestions-list {
+    position: absolute;
+    top: 100%; /* Position the list below the input field */
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1050; /* Higher than the navbar to ensure it's above */
+    width: max-content; /* Dynamically adjust width based on content */
+    max-width: 300px; /* Limit the maximum width */
+    overflow-y: auto; /* Add scrollbar for overflowing items */
+    max-height: 200px; /* Restrict height and add scrolling if needed */
+}
+
+/* Individual list item styling */
+#suggestions-list li {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+}
+
+#suggestions-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Ensure dropdown appears above navbar */
+#custom-search-bar {
+    z-index: 1040; /* Place search bar above navbar */
+    position: relative;
+}
+
+/* Adjust list to appear above */
+#suggestions-list {
+    top: auto;
+    bottom: 10px; /* Adjust to push the list above the search bar */
+    transform: translateY(150%); /* Ensure it appears above the navbar */
+    z-index: 1050;
+}

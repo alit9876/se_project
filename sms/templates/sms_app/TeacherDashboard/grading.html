@@ -1,0 +1,145 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+  <style>
+    .message-box {
+    margin: 20px auto;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ccc; /* Consistent border style */
+    border-radius: 5px; /* Match with grading system border radius */
+    background-color: #f9f9f9; /* Subtle light background to align with hover effect */
+    color: #1d1d35; /* Primary dark color for text */
+    font-size: 1rem; /* Consistent font size with buttons */
+    font-family: Arial, sans-serif; /* Clean and consistent font */
+    max-width: 600px; /* Constrain the width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .message-box strong {
+    font-weight: bold;
+    color: #007bff; /* Match the grade color */
+  }
+  
+  .message-box:hover {
+    background-color: #fffbea; /* Slight hover effect to highlight the box */
+    border-color: #1d1d35; /* Darken border on hover */
+  }
+
+  .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+  </style>
+    <!-- Main content -->
+    <div class="main-content">
+      <section class="info-section">
+          <div class="info-container">
+            <h2>Student Grading</h2>
+          </div>
+        </section>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+        <form method="get" action="">
+          <label for="grade">Select Grade:</label>
+          <select id="grade" name="grade" onchange="this.form.submit()">
+            <option value="">-- Select Grade --</option>
+            {% for grade in grades %}
+              <option value="{{ grade.id }}" {% if grade.id|stringformat:"s" == selected_grade_id %}selected{% endif %}>
+                {{ grade.grade }}
+              </option>
+            {% endfor %}
+          </select>
+        
+          <label for="curriculum">Select Subject:</label>
+          <select id="curriculum" name="curriculum" onchange="this.form.submit()">
+            <option value="">-- Select Subject --</option>
+            {% for curriculum in curriculums %}
+              {% if selected_grade_id and curriculum.grade_id|stringformat:"s" == selected_grade_id %}
+                <option value="{{ curriculum.id }}" {% if curriculum.id|stringformat:"s" == selected_curriculum_id %}selected{% endif %}>
+                  {{ curriculum.subject }}
+                </option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </form>
+        
+        {% if students %}
+        <form method="post" action="" onsubmit="return validateForm()">
+          {% csrf_token %}
+          <input type="hidden" name="curriculum" value="{{ selected_curriculum_id }}">
+          <section class="grading-system">
+           <div class="grading-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Total Marks</th>
+                <th>Obtained Marks</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in students %}
+              <tr>
+                <td>
+                  {{ student.id }}
+                  <input type="hidden" name="student_ids" value="{{ student.id }}">
+                </td>
+                <td>{{ student.first_name }} {{ student.last_name }}</td>
+                <td>
+                  <input type="number" name="total_marks_{{ student.id }}" placeholder="Total Marks" required>
+                </td>
+                <td>
+                  <input type="number" name="obtained_marks_{{ student.id }}" placeholder="Obtained Marks" required>
+                </td>
+                <td>
+                  <select name="grade_{{ student.id }}" required>
+                    <option value="">-- Select Grade --</option>
+                    <option value="A+">A+</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="F">F</option>
+                  </select>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          </div>
+          <button class="submit-btn" type="submit">Save Grades</button>
+        </form>
+        {% else %}
+        <p class="message-box">Please select a grade and subject to view students.</p>
+        {% endif %}
+      </section>
+        
+  </div>
+  <script>
+    function validateForm() {
+        const curriculum = document.getElementById("curriculum").value;
+
+        if (!curriculum) {
+            alert("Please select a subject before submitting.");
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+</script>
+{% endblock %}

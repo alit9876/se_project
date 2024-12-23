@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Admin Dashboard</title>
+
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="{% static 'styles/styleadmin.css' %}">
+   <link rel="stylesheet" href="{% static 'styles/lmsadmin.css' %}">
+   <link rel="stylesheet" href="{% static 'styles/meter-style.css' %}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+   
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="left-section">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+      
+        <div class="middle-section">
+          <a href="{% url 'admin_dashboard' %}" class="logo-link">
+            <div class="logo-text-container">
+              <img src="{% static 'images/logo.png' %}" alt="School Logo" class="logo" />
+              <div class="school-text">
+                <h1>School</h1>
+          </a>      
+                <span>Management System</span>
+              </div>
+            </div>
+        </div>
+      
+        <div class="right-section">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </header>
+
+
+      <div class="side-bar">
+
+        <div class="profile">
+           <img src="{% static 'images/pic-1.jpg' %}" class="image" alt="">
+           <p class="role">Admin Dashboard </p>
+        </div>
+     
+        <nav class="sidebar">
+           <a href="{% url 'admin_dashboard' %}" style="border-radius: 20px;"><i class="fas fa-home"></i><span>HOME</span></a>
+           <a href="{% url 'manage_teacher' %}" style="border-radius: 20px;"><i class="fas fa-calendar-alt"></i><span>Manage Teacher</span></a>
+           <a href="{% url 'student_manage' %}" style="border-radius: 20px;"><i class="fas fa-graduation-cap"></i><span>Manage Student</span></a>
+           <a href="{% url 'fee_view' %}" style="border-radius: 20px;"><i class="fas fa-chalkboard-user"></i><span>Fee Challans</span></a>
+           <a href="{% url 'logout' %}" style="border-radius: 20px;"><i class="fas fa-headset"></i><span>Logout</span></a>
+        </nav>
+     
+     </div>
+
+
+
+<main>
+    {% block content %}
+    <!-- Page-specific content will be injected here -->
+    {% endblock %}
+</main>
+
+
+
+<script src="{% static 'js/admininclude.js' %}"></script>
+<script src="{% static 'js/adminfilter.js' %}"></script>
+<script src="{% static 'js/adminpopup.js' %}"></script>
+<script src="{% static 'js/meter-script.js' %}"></script>
+
+   
+</body>
+</html>

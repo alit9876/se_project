@@ -1,0 +1,97 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <div class="main-content">
+      <section class="info-section">
+          <div class="info-container">
+            <h2>Attendance</h2>
+          </div>
+        </section>
+        
+        <section class="attendance-system">
+            <!-- Grade and Curriculum Selection -->
+            <form method="get" action="">
+              <label for="grade">Select Grade:</label>
+              <select id="grade" name="grade" onchange="this.form.submit()">
+                <option value="">-- Select Grade --</option>
+                {% for grade in grades %}
+                  <option value="{{ grade.id }}" {% if grade.id|stringformat:"s" == selected_grade_id %}selected{% endif %}>
+                    {{ grade.grade }}
+                  </option>
+                {% endfor %}
+              </select>
+          
+              <label for="curriculum">Select Subject:</label>
+              <select id="curriculum" name="curriculum" onchange="this.form.submit()">
+                <option value="">-- Select Subject --</option>
+                {% for curriculum in curriculums %}
+                  {% if selected_grade_id and curriculum.grade_id|stringformat:"s" == selected_grade_id %}
+                    <option value="{{ curriculum.id }}" {% if curriculum.id|stringformat:"s" == selected_curriculum_id %}selected{% endif %}>
+                      {{ curriculum.subject }}
+                    </option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </form>
+          
+            <!-- Attendance Table -->
+            {% if students %}
+              <div class="attendance-table">
+                <form method="post" action="" onsubmit="return validateForm()">
+                  {% csrf_token %}
+                    <input type="hidden" name="teacher_grade_curriculum_id" value="{{ selected_curriculum_id }}">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Present</th>
+                                <th>Absent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                                <tr>
+                                    <td>{{ student.id }}</td>
+                                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                                    <td>
+                                        <input type="radio" name="attendance{{ student.id }}" value="present" checked />
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="attendance{{ student.id }}" value="absent" />
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="attendance-btn" type="submit">Submit Attendance</button>
+                </form>
+                
+              </div>
+            {% else %}
+              <p>Please select a grade and subject to view the students.</p>
+            {% endif %}
+          </section>
+          
+       
+
+
+  </div>
+  <script>
+    function validateForm() {
+        const curriculum = document.getElementById("curriculum").value;
+
+        if (!curriculum) {
+            alert("Please select a subject before submitting.");
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+  </script>
+{% endblock %}

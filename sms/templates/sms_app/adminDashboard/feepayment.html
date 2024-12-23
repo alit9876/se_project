@@ -1,0 +1,219 @@
+{% extends "sms_app/adminDashboard/Adminlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<style>
+    table, th, td {
+       font-size: 1.7rem;
+       
+    }
+    td {
+       color: var(--light-color);
+    }
+</style>
+
+<section class="teacher-profile">
+
+<h1 class="heading" style="padding-top:2rem";>Manage Fee Chalans</h1>
+ 
+ 
+<div class="details">
+    <h1 style="font-size: 3rem; color: var(--black); margin-bottom: .2rem; text-align: left;">
+        Generate Challans
+    </h1>
+    <br>
+    <br>
+    <form method="POST" action="{% url 'fee_view' %}">
+        {% csrf_token %}
+        <div class="add-teacher">
+            <!-- Dropdown for Class (Grade) -->
+            <h1 style="font-size: 2rem; color: var(--black); margin-bottom: .2rem; text-align: left; margin-right: 10px;">
+                Class:
+            </h1>
+            <select name="grade" style="padding: 0.5rem; font-size: 1.5rem;">
+                <option value="" disabled selected>Select Class</option>
+                {% for grade in grades %}
+                <option value="{{ grade.id }}">{{ grade.grade }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Dropdown for Month -->
+            <h1 style="font-size: 2rem; color: var(--black); margin-bottom: .2rem; text-align: left; margin-right: 10px; margin-left: 30px;">
+                Month:
+            </h1>
+            <select name="month" style="padding: 0.5rem; font-size: 1.5rem;">
+                <option value="" disabled selected>Select Month</option>
+                {% for month_key, month_value in months %}
+                <option value="{{ month_key }}">{{ month_value }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Input for Amount -->
+            <h1 style="font-size: 2rem; color: var(--black); margin-bottom: .2rem; text-align: left; margin-right: 10px; margin-left: 30px;">
+                Amount:
+            </h1>
+            <input type="text" name="amount" placeholder="Enter Amount" style="padding: 0.5rem; font-size: 1.5rem;" />
+
+            <!-- Generate Challan Button -->
+            <button type="submit" class="inline-btn" style="font-size: 1.5rem; margin-left: 3rem; margin-bottom: 1rem; padding: 0.5rem 0.8rem;">
+                Generate Challans
+            </button>
+        </div>
+    </form>
+</div>
+
+ 
+ 
+ 
+<div class="details">
+       <h1 style="font-size: 3rem;
+       color: var(--black);
+       margin-bottom: .2rem;text-align: left;">Generated Challan List</h1>
+ <br>
+ <br>
+ <br>
+ 
+ <div class="search-bar">
+    <i class="fas fa-search"></i>
+    <input type="text" id="search-input" placeholder="Search" onkeyup="filterTable()" />
+    <button id="filter-btn" class="filter-btn">
+        <i class="fas fa-filter"></i>
+    </button>
+    <div id="filter-dropdown" class="filter-dropdown" style="display: none;">
+        <label><input type="checkbox" class="filter-checkbox" value="class" checked /> Class</label><br />
+        <label><input type="checkbox" class="filter-checkbox" value="month" checked /> Month</label><br />
+        <label><input type="checkbox" class="filter-checkbox" value="amount" checked /> Amount</label>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+<table style="width:100%" id="challan-table">
+    <tr>
+        <th>Challan ID</th>
+        <th>Name</th>
+        <th>Class</th>
+        <th>Month</th>
+        <th>Amount</th>
+        <th>Is Paid</th>
+        <th>Actions</th>
+    </tr>
+    {% for challan in fee_challans %}
+    <tr>
+        <td>{{ challan.id }}</td>
+        <td>{{ challan.student.first_name }} {{ challan.student.last_name }}</td>
+        <td>{{ challan.student.grade.grade }}</td>
+        <td>{{ challan.month }}</td>
+        <td>{{ challan.total }}$</td>
+        <td>
+            {% if challan.is_paid %}
+                Yes
+            {% else %}
+                No
+            {% endif %}
+        </td>
+        <td>
+            <button class="edit-btn" style="font-size: small; background-color: #1d1d35; margin-right: 2px; padding:1rem 1rem; border-radius: 5px; color: #fff;" 
+                    onclick="openfeePopup1('{{ challan.total }}', '{% if challan.is_paid %}Yes{% else %}No{% endif %}', '{{challan.id}}')">
+                Edit
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+        
+    </div>
+
+    <div id="popup-form" class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closefeePopup()">&times;</span>
+            <h3>Edit Challan</h3>
+            <form action="{% url 'update-challan' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="challan-id" name="challan_id" />
+                
+                <label for="amount">Amount:</label>
+                <input type="text" id="amount" name="amount" required />
+                
+                <label for="isPaid">Is Paid:</label>
+                <select id="isPaid" name="is_paid">
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                </select>
+                
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+    
+ 
+    
+ </section>
+
+
+ <script>
+function openfeePopup1(total, val, challanID) {
+    // Get the popup form
+    
+    const popup = document.getElementById('popup-form');
+  
+    // Populate form fields
+    document.getElementById('amount').value = total;
+    document.getElementById('isPaid').value = val;
+    document.getElementById('challan-id').value = challanID;
+
+    // Optionally display email or other uneditable fields (if needed)
+    
+  
+    // Display the popup
+    popup.style.display = 'flex';
+  }
+  
+  function closefeePopup() {
+    // Hide the popup
+    const popup = document.getElementById('popup-form');
+    popup.style.display = 'none';
+  }
+    
+
+    document.getElementById("filter-btn").addEventListener("click", function () {
+    const filterDropdown = document.getElementById("filter-dropdown");
+    filterDropdown.style.display = filterDropdown.style.display === "none" ? "block" : "none";
+});
+
+function filterTable() {
+    const searchInput = document.getElementById("search-input").value.toLowerCase();
+    const table = document.getElementById("challan-table");
+    const rows = table.getElementsByTagName("tr");
+    const filters = Array.from(document.querySelectorAll(".filter-checkbox:checked")).map((cb) => cb.value);
+
+    // Loop through all table rows, excluding the header row
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName("td");
+        let rowMatches = false;
+
+        // Check each cell based on enabled filters
+        if (filters.includes("class") && cells[2].innerText.toLowerCase().includes(searchInput)) {
+            rowMatches = true;
+        }
+        if (filters.includes("month") && cells[3].innerText.toLowerCase().includes(searchInput)) {
+            rowMatches = true;
+        }
+        if (filters.includes("amount") && cells[4].innerText.toLowerCase().includes(searchInput)) {
+            rowMatches = true;
+        }
+
+        // Show or hide the row based on matching filters
+        rows[i].style.display = rowMatches ? "" : "none";
+    }
+}
+
+ </script>
+{% endblock %}

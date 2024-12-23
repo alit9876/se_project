@@ -1,0 +1,56 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<div class="main-content">
+  <section class="info-section">
+    <div class="info-container">
+      <h2>Academic Calender (2024-2025)</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+        reprehenderit eos laborum! Provident asperiores obcaecati nulla
+        sequi, reprehenderit aliquam laborum officia maxime corporis
+        doloremque rerum illum quasi adipisci excepturi omnis?
+      </p>
+    </div>
+  </section>
+
+  
+
+  {% if semesters %}
+  {% for semester in semesters %}
+      <div class="info-container">
+          <h3>{{ semester.name }} ({{ semester.session }})</h3>
+      </div>
+      <table id="retailersTable" class="retailers-table">
+          <thead>
+              <tr>
+                  <th>Activity</th>
+                  <th>Date</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for activity in semester.activities %}
+                  <tr>
+                      <td>{{ activity.activity }}</td>
+                      <td>{{ activity.date }}</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  {% endfor %}
+{% else %}
+  <h3 style="display: flex; justify-content: center; align-items: center; height: 10vh; text-align: center; font-size: 1.5rem; color: #555;">
+      No calendar available
+  </h3>
+{% endif %}
+
+
+</div>
+ </div>
+ 
+ 
+{% endblock %}

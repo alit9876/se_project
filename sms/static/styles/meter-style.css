@@ -1,0 +1,65 @@
+/* Default size for meters */
+.meter-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+}
+
+/* Styling for meter circle */
+.meter-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--color, red) calc(var(--percentage, 0) * 1%), 
+    #e0e0e0 0%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Centering the numbers and label inside the circle */
+.meter-circle .center {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.center h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #333;
+}
+
+.center p {
+  font-size: 1.5rem;
+  color: #666;
+}
+
+/* Custom styling for the student meter */
+.meter-container .student {
+  width: 200px;
+  height: 200px;
+}
+
+/* Custom styling for the teacher meter */
+.meter-container .teacher {
+  width: 200px;
+  height: 200px;
+}
+
+/* Make everything responsive */
+@media (max-width: 768px) {
+  .meter-container {
+    width: 150px;
+    height: 150px;
+  }
+}

@@ -1,0 +1,251 @@
+{% load static %}  <!-- Make sure this is at the top -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admission</title>
+  <link rel="stylesheet" href="{% static 'styles/styleadmin.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/admission_style.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/meter-style.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
+	
+</head>
+<body>
+	<!-- Header -->
+    
+	<header class="topbar">
+        <div class="left-section">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search" />
+          </div>
+        </div>
+      
+        <div class="middle-section">
+          <a href="{% url 'admin_dashboard' %}" class="logo-link">
+            <div class="logo-text-container">
+              <img src="{% static 'images/logo.png' %}" alt="School Logo" class="logo" />
+              <div class="school-text">
+                <h1>School</h1>
+          </a>      
+                <span>Management System</span>
+              </div>
+            </div>
+        </div>
+      
+        <div class="right-section">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </header>
+	  <br>
+	  <br>
+  <section class="header">
+
+	<div class="wrapper">
+		<div class="r_form_wrap">
+			
+			<div class="title" style="border-radius: 20px;">
+				<div class="add-btn">
+				<a href="{% url 'manage_teacher' %}" style="font-size: 1.4rem;"><i class="fas fa-home"></i></a>
+				<p>Add Teacher</p>	
+			</div>
+				
+				
+			</div>
+			
+			<!-- Admission from -->
+			<div class="r_form" style="border-radius: 20px;">
+				<form method="POST" enctype="multipart/form-data" id="studentForm">
+                    {% csrf_token %}
+                    <div class="input_wrap">
+                        <label for="username">Username</label>
+                        <div class="input_item">
+                            <i class="fa fa-user" id="icon"></i>
+                            <input type="text" name="username" class="input" id="username" placeholder="Enter the username" required>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="password">Password</label>
+                        <div class="input_item">
+                            <i class="fa fa-lock" id="icon"></i>
+                            <input type="password" name="password" class="input" id="password" placeholder="Enter the password" required>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="contact_no">Contact Number</label>
+                        <div class="input_item">
+                            <i class="fa fa-phone-square" id="icon"></i>
+                            <input type="text" name="contact_no" class="input" id="contact_no" placeholder="Enter the contact number">
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="first_name">First Name</label>
+                        <div class="input_item">
+                            <i class="fa fa-user" id="icon"></i>
+                            <input type="text" name="first_name" class="input" id="first_name" placeholder="Enter the first name" required>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="last_name">Last Name</label>
+                        <div class="input_item">
+                            <i class="fa fa-user" id="icon"></i>
+                            <input type="text" name="last_name" class="input" id="last_name" placeholder="Enter the last name" required>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="dob">Date of Birth</label>
+                        <div class="input_item">
+                            <i class="fa fa-calendar" id="icon"></i>
+                            <input type="date" name="dob" class="input" id="dob" required>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="gender">Gender</label>
+                        <div class="input_radio">
+                            <div class="input_radio_item">
+                                <input type="radio" id="male" name="gender" class="radio" value="M" required>
+                                <label for="male" class="radio_mark">
+                                    <ion-icon class="i" name="male-sharp"></ion-icon>
+                                    Male
+                                </label>
+                            </div>
+                            <div class="input_radio_item">
+                                <input type="radio" id="female" name="gender" class="radio" value="F">
+                                <label for="female" class="radio_mark">
+                                    <ion-icon class="i" name="female-sharp"></ion-icon>
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="address">Address</label>
+                        <div class="input_item">
+                            <i class="fa fa-home" id="icon"></i>
+                            <input type="text" name="address" class="input" id="address" placeholder="Enter the address" required>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="hire_date">Hire Date</label>
+                        <div class="input_item">
+                            <i class="fa fa-calendar" id="icon"></i>
+                            <input type="date" name="hire_date" class="input" id="hire_date" required>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="grade">Grade</label>
+                        <div class="input_item">
+                            <i class="fa fa-caret-square-o-down" id="icon"></i>
+                            <select id="grade" name="grade" class="input" onchange="this.form.submit()">
+                                <option value="">Select Grade</option>
+                                {% for grade in grades %}
+                                <option value="{{ grade.id }}" {% if grade.id|stringformat:"s" == selected_grade_id %}selected{% endif %}>
+                                    {{ grade.grade }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="input_wrap">
+                        <label for="curriculum">Curriculum</label>
+                        <div class="input_item">
+                            <i class="fa fa-book" id="icon"></i>
+                            <select id="curriculum" name="curriculum" class="input" required>
+                                {% for curriculum in curriculums %}
+                                <option value="{{ curriculum.id }}">{{ curriculum.subject }}</option>
+                                {% empty %}
+                                <option value="">No available curriculums</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                
+                    <input type="submit" class="button" value="Add Teacher">
+                    <input type="reset" class="clear_ad" value="Clear" onclick="clearForm();">
+                </form>
+                
+                 
+			</div>
+			
+	
+		</div>
+	</div>
+	</section>
+	<div class="none_div">
+
+	
+	</body>
+
+    <!-- Script -->
+    <script src="js/include.js"></script>
+	<!-- Javascript for this Web page -->
+	<script src=" https://smtpjs.com/v3/smtp.js"></script>
+	<script>
+	function clearForm() {
+    // Select the form by its ID
+    const form = document.getElementById("studentForm");
+
+    // Reset all form fields
+    form.reset();
+
+    // Clear custom styles or validation messages if any
+    const inputs = form.querySelectorAll(".input");
+    inputs.forEach((input) => {
+        input.classList.remove("error", "success"); // Example: remove error/success styles
+    });
+
+    // Clear radio button selections
+    const radios = form.querySelectorAll(".radio");
+    radios.forEach((radio) => {
+        radio.checked = false;
+    });
+
+    // Clear select dropdowns to their default value
+    const selects = form.querySelectorAll("select");
+    selects.forEach((select) => {
+        select.selectedIndex = 0; // Reset to the first option
+    });
+
+    // Optionally, you can log or display a confirmation message
+    console.log("Form cleared!");
+}
+
+
+	function sendmail(){
+		Email.send({}).then(
+	message => alert("Thanks for filling out our form!")
+);
+		}
+	</script>
+	<script>
+	var navLinks= document.getElementById("navLinks");
+
+function showmenu(){
+    navLinks.style.right="0";
+}   
+function hidemenu(){
+    navLinks.style.right="-200px";
+}
+</script>
+</html>

@@ -1,0 +1,90 @@
+{% extends "sms_app/layout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}School Management System{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="main-content">
+      <section class="info-section">
+        <div class="info-container">
+          <h2>UNIFORM RETAILERS</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+            reprehenderit eos laborum! Provident asperiores obcaecati nulla
+            sequi, reprehenderit aliquam laborum officia maxime corporis
+            doloremque rerum illum quasi adipisci excepturi omnis?
+          </p>
+        </div>
+      </section>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search Retailers..." onkeyup="searchRetailers()" />
+    </div>
+
+    <!-- Retailers Table -->
+    <table id="retailersTable" class="retailers-table">
+      <thead>
+        <tr>
+          <th>SR#</th>
+          <th>Retailer Name</th>
+          <th>Region</th>
+          <th>City</th>
+          <th>Address</th>
+          <th>Phone#</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if retailers %}
+          {% for retailer in retailers %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ retailer.name }}</td>
+              <td>{{ retailer.region }}</td>
+              <td>{{ retailer.city }}</td>
+              <td>{{ retailer.address }}</td>
+              <td>{{ retailer.phone }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="6" class="no-retailers-msg">No retailers present right now.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    <style>
+      .no-retailers-msg {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+    </style>
+    <script>
+      function searchRetailers() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("retailersTable");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          const cells = row.getElementsByTagName("td");
+          let match = false;
+          for (let j = 0; j < cells.length; j++) {
+            if (cells[j].textContent.toLowerCase().includes(filter)) {
+              match = true;
+              break;
+            }
+          }
+          row.style.display = match ? "" : "none";
+        }
+      }
+    </script>
+
+  </div>
+</section>
+</div>
+{% endblock %}

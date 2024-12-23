@@ -1,0 +1,99 @@
+{% extends "sms_app/studentDashboard/studentlayout.html" %}
+{% load static %}  <!-- Make sure this is at the top -->
+
+{% block title %}{{ student.first_name }}{% endblock %}
+
+{% block content %}
+<!-- Main content -->
+<section class="user-profile">
+   <h1 class="heading" style="padding-top:2rem ;">Profile</h1>
+
+   <div class="info">
+
+      <div class="user">
+         <img src="{% static 'images/pic-1.jpg' %}" alt="">
+         <h3>{{ student.first_name }}</h3>
+         <p>student</p>
+         
+      </div>
+   
+      <div class="box-container">
+         
+
+         <div class="box">
+            <div class="flex">
+                <h1 class="headd" style="font-size: 2rem; font-style: italic;">Personal Information</h1>
+            </div>
+            <br>
+            <div class="flex">
+                <div class="headd">Registration No:</div>
+                <div class="data">{{ student.id|default:"N/A" }}</div>
+            </div>
+            <div class="flex">
+                <div class="headd">Name:</div>
+                <div class="data">{{ student.first_name }} {{ student.last_name }}</div>
+            </div>
+            <div class="flex">
+                <div class="headd">Grade:</div>
+                <div class="data">{{ student.grade.grade|default:"N/A" }}</div>
+            </div>
+            <div class="flex">
+                <div class="headd">Gender:</div>
+                <div class="data">{{ student.gender|default:"N/A" }}</div>
+            </div>
+        </div>
+        
+        <div class="box">
+         <div class="flex">
+             <h1 class="headd" style="font-size: 2rem; font-style: italic;">Contact Information</h1>
+         </div>
+         <br>
+         <div class="flex">
+            <div class="headd">{{ parents.relation }} Name:</div>
+            <div class="data">{{ parents.first_name }} {{ parents.last_name }}</div>
+        </div>
+        <div class="flex">
+            <div class="headd">Contact Number:</div>
+            <div class="data">{{ parents.contact_no|default:"N/A" }}</div>
+        </div>
+        <div class="flex">
+            <div class="headd">Address:</div>
+            <div class="data">{{ parents.address|default:"N/A" }}</div>
+        </div>
+        <div class="flex">
+            <div class="headd">Email:</div>
+            <div class="data">{{ parents.email|default:"N/A" }}</div>
+        </div>
+     </div>
+     
+
+
+
+         <div class="box">
+            <div class="flex">
+               <h1 class="headd" style="font-size: 2rem; font-style: italic;">Campus Information</h1>   
+            </div>
+            <br>
+            <div class="flex">
+               
+               <div class="headd">Campus Name:</div>
+               <div class="data">UET Lahore</div>
+            </div>
+            <div class="flex">
+               
+               <div class="headd">District:</div>
+               <div class="data">Lahore</div>
+            </div>
+            <div class="flex">
+               
+               <div class="headd">Province:</div>
+               <div class="data">Punjab</div>
+            </div>
+
+         </div>
+   
+      </div>
+   </div>
+
+</section>
+{% endblock %}
